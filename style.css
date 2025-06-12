@@ -1,0 +1,214 @@
+
+/* === Reset & Base Styles === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  height: 100%;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #000a1f, #001f33, #002244);
+  color: #ccfaff;
+  overflow: show;
+}
+
+/* === Container === */
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* === Title Bar === */
+.title {
+  position: sticky;
+  top: 0;
+  text-align: center;
+  padding: 16px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #00f7ff;
+  z-index: 10;
+  background: linear-gradient(135deg, #001f33, #003366, #005577);
+  border: 2px solid #00ccff;
+  border-radius: 10px;
+  animation: glowBorder 2s infinite alternate;
+  box-shadow: 0 0 15px #00ccff, 0 0 30px #00ccff66;
+}
+
+/* === Chatbox === */
+.chatbox {
+  flex: 1;
+  padding: 16px;
+  padding-bottom: 90px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  background: #000c22;
+  scroll-behavior: smooth;
+}
+.chatbox::-webkit-scrollbar {
+  width: 8px;
+}
+.chatbox::-webkit-scrollbar-track {
+  background: transparent;
+}
+.chatbox::-webkit-scrollbar-thumb {
+  background: #00ccff;
+  border-radius: 10px;
+}
+
+/* === Messages === */
+.message {
+  max-width: 75%;
+  padding: 12px 16px;
+  border-radius: 20px;
+  font-size: 15px;
+  word-wrap: break-word;
+  line-height: 1.5;
+  background: #002244;
+  box-shadow: 0 0 10px #00ccffaa;
+}
+.message.user {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #0066ff, #0099ff);
+  color: #fff;
+  box-shadow: 0 0 12px #00cfffaa;
+}
+.message.bot {
+  align-self: flex-start;
+  background: #001f33;
+  color: #c0f7ff;
+}
+
+/* === Typing Animation === */
+#typing {
+  font-style: italic;
+  opacity: 0.7;
+  animation: blink 1.4s infinite;
+  color: #00ffff;
+}
+@keyframes blink {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* === Chat Form === */
+.chat-form {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  background: #001a33;
+  border-top: 1px solid #004466;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+}
+
+/* === Input Field === */
+.chat-form input {
+  flex: 1;
+  padding: 14px 16px;
+  font-size: 16px;
+  border: none;
+  border-radius: 30px;
+  background: #002244;
+  color: #a0f0ff;
+  outline: none;
+  transition: box-shadow 0.2s ease;
+}
+.chat-form input::placeholder {
+  color: #88b3cc;
+}
+.chat-form input:focus {
+  box-shadow: 0 0 0 2px #00ccff;
+}
+
+/* === Send Button === */
+.chat-form button {
+  padding: 12px 20px;
+  background: #00ccff;
+  color: #001020;
+  font-weight: 600;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  box-shadow: 0 0 10px #00ccffaa;
+}
+.chat-form button:hover:not(:disabled) {
+  background: #33ddff;
+}
+.chat-form button:disabled {
+  background: #334455;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* === Mobile Keyboard Fix === */
+@media (max-width: 768px) {
+  .chat-form {
+    padding-bottom: env(keyboard-inset-height, 12px);
+  }
+  .chatbox {
+    padding-bottom: calc(90px + env(keyboard-inset-height, 0px));
+  }
+}
+
+/* === Glowing Title Border Animation === */
+@keyframes glowBorder {
+  0% {
+    box-shadow: 0 0 8px #00eaff, 0 0 16px #00eaff66;
+    border-color: #00eaff;
+  }
+  100% {
+    box-shadow: 0 0 20px #00f5ff, 0 0 40px #00f5ff99;
+    border-color: #00f5ff;
+  }
+}
+
+/* === Loading Screen === */
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #000a1f, #001f33, #002244);
+  color: #ccfaff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 9999;
+}
+
+#loading-screen h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  animation: fadeIn 2s ease-in-out infinite alternate;
+}
+
+.spinner {
+  border: 8px solid #003355;
+  border-top: 8px solid #00ccff;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0.5; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
